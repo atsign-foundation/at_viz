@@ -38,21 +38,21 @@ describe. The atsign-foundation GitHub organization's conventions and configurat
 To prepare your dedicated GitHub repository:
 
 1. Fork in GitHub https://github.com/atsign-foundation/REPO
-2. Clone *your forked repository* (e.g., `git clone git@github.com:yourname/REPO`)
+2. Clone *your forked repository* (e.g., `git clone git@github.com:atsign-foundation/at_viz.git`)
 3. Set your remotes as follows:
 
    ```sh
    cd REPO
-   git remote add upstream git@github.com:atsign-foundation/REPO.git
+   git remote add upstream git@github.com:atsign-foundation/at_viz.git
    git remote set-url upstream --push DISABLED
    ```
 
    Running `git remote -v` should give something similar to:
 
    ```text
-   origin  git@github.com:yourname/REPO.git (fetch)
-   origin  git@github.com:yourname/REPO.git (push)
-   upstream        git@github.com:atsign-foundation/REPO.git (fetch)
+   origin  git@github.com:atsign-foundation/at_viz.git (fetch)
+   origin  git@github.com:atsign-foundation/at_viz.git (push)
+   upstream        git@github.com:atsign-foundation/at_viz.git (fetch)
    upstream        DISABLED (push)
    ```
 

@@ -1,3 +1,6 @@
 ## 0.0.1
 
-* TODO: Describe initial release.
+- **FEAT**: Initial release consists of following charts and gauges:
+
+      - Line and bar time series charts
+      - Linear and radial gauges

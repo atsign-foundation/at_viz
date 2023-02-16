@@ -1,7 +1,7 @@
 name: at_viz
-description: A new Flutter plugin project.
+description: The at_viz library comes with highly customizable gauges charts and gauges.
 version: 0.0.1
-homepage:
+homepage: https://github.com/atsign-foundation/at_viz/tree/trunk
 
 environment:
   sdk: '>=2.19.1 <3.0.0'
