@@ -63,8 +63,6 @@ Add details on how to use the package in an application
 Make sure your source code annotations are clear and comprehensive.
 -->
 
-This package provides two beautiful charts.
-
 #### Simple Line Chart Example
 
 ```dart
