@@ -1,6 +1,6 @@
 name: at_viz
 description: The at_viz library comes with highly customizable gauges charts and gauges.
-version: 0.0.1
+version: 0.0.2
 homepage: https://github.com/atsign-foundation/at_viz/tree/trunk
 
 environment:
