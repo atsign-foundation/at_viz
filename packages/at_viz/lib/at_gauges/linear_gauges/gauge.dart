@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class LinearGauge extends StatefulWidget {
-  LinearGauge({
+  const LinearGauge({
     required this.maxValue,
     required this.minValue,
     required this.actualValue,
