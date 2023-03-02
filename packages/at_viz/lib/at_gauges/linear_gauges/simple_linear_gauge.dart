@@ -7,7 +7,8 @@ import 'package:flutter/material.dart';
 import '../painters/linear/simple_linear_gauge_painter.dart';
 
 class SimpleLinearGauge extends LinearCustomGauge {
-  SimpleLinearGauge({
+  const SimpleLinearGauge({
+    super.key,
     required double maxValue,
     required double actualValue,
     double minValue = 0,
@@ -94,7 +95,6 @@ class _SimpleLinearGaugeState extends State<SimpleLinearGauge>
       animationController.animateTo(widget.actualValue);
     }
     return CustomPaint(
-      child: SizedBox.expand(),
       painter: SimpleLinearGaugePainter(
         maxValue: widget.maxValue,
         minValue: widget.minValue,
@@ -113,6 +113,7 @@ class _SimpleLinearGaugeState extends State<SimpleLinearGauge>
         majorTicksValueTextStyle: widget.majorTicksValueTextStyle,
         gaugeOrientation: widget.gaugeOrientation,
       ),
+      child: const SizedBox.expand(),
     );
   }
 }

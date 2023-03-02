@@ -1,4 +1,4 @@
-import 'package:at_time_series_chart/at_time_series_chart.dart';
+import 'package:at_viz/at_charts/at_time_series_chart/lib/at_time_series_chart.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

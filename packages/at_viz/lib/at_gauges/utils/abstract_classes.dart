@@ -326,9 +326,7 @@ abstract class LinearCustomPainter extends CustomPainter {
       textAlign: TextAlign.center,
       text: TextSpan(
           text: title.data,
-          style: title.style == null
-              ? TextStyle(color: Colors.black)
-              : title.style),
+          style: title.style ?? const TextStyle(color: Colors.black)),
       textDirection: TextDirection.ltr,
     )..layout();
 
@@ -412,7 +410,8 @@ abstract class LinearCustomPainter extends CustomPainter {
 }
 
 abstract class LinearCustomGauge extends StatefulWidget {
-  LinearCustomGauge({
+  const LinearCustomGauge({
+    super.key,
     required this.minValue,
     required this.maxValue,
     required this.actualValue,
