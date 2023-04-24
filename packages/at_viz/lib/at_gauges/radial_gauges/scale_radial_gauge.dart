@@ -28,6 +28,8 @@ class ScaleRadialGauge extends StatefulWidget {
         assert(size >= 140, 'size must be greater than 75'),
         assert(actualValue >= minValue,
             'actualValue must be greater than or equal to minValue'),
+        assert(minValue < maxValue,
+            'maxValue must be greater than minValue'),
         super(key: key);
 
   /// Sets the minimum value of the gauge.
