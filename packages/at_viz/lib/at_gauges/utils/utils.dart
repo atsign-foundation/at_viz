@@ -4,3 +4,4 @@ export 'enums.dart';
 export 'radial_helper.dart';
 export 'range.dart';
 export 'zone_segment.dart';
+export 'custom_label.dart';
