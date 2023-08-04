@@ -26,7 +26,8 @@ This open source package is written in Dart, and it supports Flutter with the fo
 
 ##### SegmentRadialGauge
 
-![segment radial gauge gif](https://raw.githubusercontent.com/project2021-code/at_viz/trunk/at_viz/lib/at_gauges/gifs/segment_gauge.gif)
+![segment radial gauge gif](https://raw.githubusercontent.com/project2021-code/at_viz/trunk/packages/at_viz/lib/at_gauges/gifs/segment_gauge.gif)
+  
 
 ##### SimpleLinearGauge
 
