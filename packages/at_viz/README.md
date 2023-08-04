@@ -24,13 +24,17 @@ This open source package is written in Dart, and it supports Flutter with the fo
 
 ![scale radial gauge gif](https://raw.githubusercontent.com/atsign-foundation/at_gauges/trunk/gifs/scale_gauge.gif)
 
+##### SegmentRadialGauge
+
+![segment radial gauge gif](https://raw.githubusercontent.com/project2021-code/at_viz/trunk/at_viz/lib/at_gauges/gifs/segment_gauge.gif)
+
 ##### SimpleLinearGauge
 
 ![simple linear gauge gif](https://raw.githubusercontent.com/atsign-foundation/at_gauges/trunk/gifs/linear_gauge.gif)
 <!-- - Range radial gauge -->
   <!--- add package features here -->
 
-  ##### AtTimeSeriesLineChart
+##### AtTimeSeriesLineChart
 
 <img src="https://user-images.githubusercontent.com/88494375/199918844-105c0c55-3ede-4621-8f92-33bad536e6c7.png" width="250" alt="accessibility text">
 
@@ -53,6 +57,7 @@ import 'package:at_viz/at_charts/at_time_series_chart/lib/at_time_series_chart.d
 import 'package:at_viz/at_gauges/linear_gauges/simple_linear_gauge.dart';
 import 'package:at_viz/at_gauges/radial_gauges/scale_radial_gauge.dart';
 import 'package:at_viz/at_gauges/radial_gauges/simple_radial_gauge.dart';
+import 'package:at_viz/at_gauges/radial_gauges/segment_radial_gauge.dart';
 ```
 <!---
 Add details on how to use the package in an application
@@ -126,7 +131,7 @@ ScaleRadialGauge(
 ```
 #### Simple Linear Gauge
 
-The code snippet below shows the simple gauge widget with the required `actualValue`, `maxValue` and the optional properties.
+The code snippet below shows the simple linear gauge widget with the required `actualValue`, `maxValue` and the optional properties.
 
 ```dart
 SimpleLinearGauge(
@@ -149,6 +154,66 @@ SimpleLinearGauge(
     minorTickStrokeWidth: 3,
     actualValueTextStyle: const TextStyle(color: Colors.black, fontSize: 15),
     majorTickValueTextStyle: const TextStyle(color: Colors.black),
+),
+```
+#### Segment Radial Gauge
+
+The code snippet below shows the segment gauge widget with the required `actualValue`, `maxValue` and the optional properties.
+```dart
+SegmentRadialGauge(
+    maxValue: _maxValue,
+    actualValue: _value,
+    // Optional Parameters
+    minValue: _minValue,
+    size: 250,
+    title: const Text('Segment Radial Gauge'),
+    titlePosition: TitlePosition.top,
+    pointerColor: Colors.cyan,
+    needleColor: Colors.cyan,
+    decimalPlaces: 2,
+    isAnimate: true,
+    animationDuration: 125,
+    unit: const TextSpan(
+    text: 'V',
+    style: TextStyle(
+        fontSize: 10,
+        color: Colors.cyan,
+        ),
+    ),
+    isPointer: false,
+    // titleText: "Title",
+    // title2Text: "Title2",
+    segmentStartAngle: 135,
+    segmentSweepAngle: 270,
+    segmentMainNo: 8,
+    segmentSubNo: 5,
+    segmentList: [
+        ZoneSegment(
+            size: 1,
+            color: Colors.red.withOpacity(0.95),
+        ),
+        ZoneSegment(
+            size: 2,
+            color: Colors.blue.withOpacity(0.95),
+        ),
+        ZoneSegment(
+            size: 1,
+            color: Colors.orangeAccent.withOpacity(0.95),
+        ),
+        ZoneSegment(
+            size: 4,
+            color: Colors.greenAccent.withOpacity(0.95),
+        ),
+    ],
+    customLabel: true,
+    labelList: [
+        CustomLabel(text: '0', fontSize: 16, xOffset: -40, yOffset: 40),
+        CustomLabel(text: '8', fontSize: 16, xOffset: -5, yOffset: -60),
+        CustomLabel(text: '16', fontSize: 16, xOffset: 25, yOffset: 40),
+        CustomLabel(text: 'Title', fontSize: 12, xOffset: -12, yOffset: 60),
+        CustomLabel(text: 'Title2', fontSize: 18, xOffset: -24, yOffset: -39),
+    ],
+    actualValueFontSize: 16,
 ),
 ```
 

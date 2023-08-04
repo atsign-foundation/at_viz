@@ -14,9 +14,9 @@ class GaugesExample extends StatefulWidget {
 
 class _GaugesExampleState extends State<GaugesExample> {
 
-  double _value = 20;
+  double _value = 8;
   final double _minValue = 0;
-  final double _maxValue = 27;
+  final double _maxValue = 16;
 
   @override
   Widget build(BuildContext context) {
@@ -100,7 +100,7 @@ class _GaugesExampleState extends State<GaugesExample> {
                       color: Colors.black,
                       fontSize: 10,
                     ),
-                    unitString: '\u2103',
+                    unitString: '',
                   ),
                   const Padding(
                       padding: EdgeInsets.all(8.0),
@@ -114,11 +114,11 @@ class _GaugesExampleState extends State<GaugesExample> {
                     divisions: 7,
                     title: Text('Simple Linear Gauge'),
                     titlePosition: TitlePosition.bottom,
-                    pointerColor: Colors.blue,
+                    pointerColor: Colors.red,
                     pointerIcon: Icon(
                       Icons.arrow_downward,
                       // Icons.water_drop,
-                      color: Colors.blue,
+                      color: Colors.red,
                       size: 15,
                     ),
                     decimalPlaces: 1,
@@ -177,11 +177,11 @@ class _GaugesExampleState extends State<GaugesExample> {
                     // Optional Parameters
                     minValue: 35,
                     size: 250,
-                    title: const Text('Zone Radial Gauge'),
+                    title: const Text('Segment Radial Gauge'),
                     titlePosition: TitlePosition.top,
                     pointerColor: Colors.cyan,
                     needleColor: Colors.cyan,
-                    decimalPlaces: 0,
+                    decimalPlaces: 2,
                     isAnimate: true,
                     animationDuration: 100,
                     unit: const TextSpan(
@@ -223,7 +223,7 @@ class _GaugesExampleState extends State<GaugesExample> {
                     // Optional Parameters
                     minValue: _minValue,
                     size: 250,
-                    title: const Text('Zone Radial Gauge'),
+                    title: const Text('Segment Radial Gauge'),
                     titlePosition: TitlePosition.top,
                     pointerColor: Colors.cyan,
                     needleColor: Colors.cyan,
@@ -238,8 +238,8 @@ class _GaugesExampleState extends State<GaugesExample> {
                       ),
                     ),
                     isPointer: false,
-                    titleText: "Title",
-                    title2Text: "Title2",
+                    // titleText: "Title",
+                    // title2Text: "Title2",
                     segmentStartAngle: 135,
                     segmentSweepAngle: 270,
                     segmentMainNo: 8,
@@ -262,20 +262,47 @@ class _GaugesExampleState extends State<GaugesExample> {
                         color: Colors.greenAccent.withOpacity(0.95),
                       ),
                     ],
+                    customLabel: true,
+                    labelList: [
+                      CustomLabel(text: '0', fontSize: 16, xOffset: -40, yOffset: 40),
+                      CustomLabel(text: '8', fontSize: 16, xOffset: -5, yOffset: -60),
+                      CustomLabel(text: '16', fontSize: 16, xOffset: 25, yOffset: 40),
+                      CustomLabel(text: 'Title', fontSize: 12, xOffset: -12, yOffset: 60),
+                      // CustomLabel(text: 'TitleX', fontSize: 16, xOffset: -20, yOffset: 57.5),
+                      CustomLabel(text: 'Title2', fontSize: 18, xOffset: -24, yOffset: -39),
+                    ],
+                    actualValueFontSize: 16,
                   ),
                   const Padding(
-                      padding: EdgeInsets.all(8.0),
+                      padding: EdgeInsets.all(2.0),
                       child: SizedBox.shrink()
                   ),
-                  Slider(
-                    value: _value,
-                    min: _minValue + 1,
-                    max: _maxValue - 1,
-                    onChanged: (value) {
-                      setState(() {
-                        _value = value;
-                      });
-                    },
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.all(1),
+                        child: SizedBox.shrink(),
+                      ),
+                      Slider(
+                        value: _value,
+                        min: _minValue + 1,
+                        max: _maxValue - 1,
+                        onChanged: (value) {
+                          setState(() {
+                            _value = value;
+                          });
+                        },
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(1),
+                        child: SizedBox.shrink(),
+                      ),
+                    ],
+                  ),
+                  const Padding(
+                      padding: EdgeInsets.all(20.0),
+                      child: SizedBox.shrink()
                   ),
                 ],
               ),
