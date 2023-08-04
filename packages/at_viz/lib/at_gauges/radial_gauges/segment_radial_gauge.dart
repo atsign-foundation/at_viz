@@ -5,6 +5,7 @@ import '../utils/constants.dart';
 import '../utils/enums.dart';
 import '../utils/radial_helper.dart';
 import '../utils/zone_segment.dart';
+import '../utils/custom_label.dart';
 
 class SegmentRadialGauge extends StatefulWidget {
   /// Creates a scale Gauge.
@@ -31,6 +32,9 @@ class SegmentRadialGauge extends StatefulWidget {
     this.segmentMainNo = 10,
     this.segmentSubNo = 2,
     this.segmentList = const [],
+    this.customLabel = false,
+    this.labelList = const [],
+    this.actualValueFontSize = 14,
     Key? key,
   }) :
         assert(actualValue <= maxValue,
@@ -110,6 +114,15 @@ class SegmentRadialGauge extends StatefulWidget {
 
   /// Controls Zone Size & Color
   final List<ZoneSegment> segmentList;
+
+  /// Controls Custom Label On/Off
+  final bool customLabel;
+
+  /// Controls Custom Label Text, Font Size & Location
+  final List<CustomLabel> labelList;
+
+  /// Controls Actual Value Font Size
+  final double actualValueFontSize;
 
   @override
   State<SegmentRadialGauge> createState() => _SegmentRadialGaugeState();
@@ -216,6 +229,9 @@ class _SegmentRadialGaugeState extends State<SegmentRadialGauge>
                     segmentMainNo: widget.segmentMainNo,
                     segmentSubNo: widget.segmentSubNo,
                     segmentList: widget.segmentList,
+                    customLabel: widget.customLabel,
+                    labelList: widget.labelList,
+                    actualValueFontSize: widget.actualValueFontSize,
                   ),
                 ),
               ),

@@ -22,6 +22,9 @@ class SegmentRadialGaugePainter extends CustomPainter {
     required this.segmentMainNo,
     required this.segmentSubNo,
     required this.segmentList,
+    required this.customLabel,
+    required this.labelList,
+    required this.actualValueFontSize,
     Key? key,
   });
   final double sweepAngle;
@@ -41,6 +44,9 @@ class SegmentRadialGaugePainter extends CustomPainter {
   final int segmentMainNo;
   final int segmentSubNo;
   final List<ZoneSegment> segmentList;
+  final bool customLabel;
+  final List<CustomLabel> labelList;
+  final double actualValueFontSize;
 
   List<double> getScale(double divider) {
     List<double> scale = [];
@@ -164,145 +170,167 @@ class SegmentRadialGaugePainter extends CustomPainter {
     final zeroTextGapMax    = maxValue / (maxValue - minValue);
 
     // Print min / half / max Value Text
-    List<double> valueTextList = [minValue, halfOfMinMaxValue, maxValue, 0];
-    double valueFontSizeOffset = 0;
+    if (!customLabel) {
+      List<double> valueTextList = [minValue, halfOfMinMaxValue, maxValue, 0];
+      double valueFontSizeOffset = 0;
 
-    for (var value in valueTextList) {
-      var valueLength = value.toStringAsFixed(decimalPlaces).length;
-      double valueFontSizeOffsetT = (valueLength / 3).ceil().toDouble();
-      if (valueFontSizeOffset < valueFontSizeOffsetT) {
-        if (valueFontSizeOffsetT > 2) {
-          valueFontSizeOffset = 1.2 * valueFontSizeOffsetT.ceil().toDouble();
+      for (var value in valueTextList) {
+        var valueLength = value.toStringAsFixed(decimalPlaces).length;
+        double valueFontSizeOffsetT = (valueLength / 3).ceil().toDouble();
+        if (valueFontSizeOffset < valueFontSizeOffsetT) {
+          if (valueFontSizeOffsetT > 2) {
+            valueFontSizeOffset = 1.2 * valueFontSizeOffsetT.ceil().toDouble();
+          } else {
+            valueFontSizeOffset = valueFontSizeOffsetT;
+          }
+        }
+      }
+
+      for (var value in valueTextList) {
+        var valueLength = value.toStringAsFixed(decimalPlaces).length;
+        bool needValueOffset = false;
+        // double valueRnd = double.tryParse(value.toStringAsFixed(0)) ?? 0;
+        double valueRnd = 0;
+        int valueDP = 0;
+        for (valueDP; valueDP < 3; valueDP++) {
+          valueRnd = double.tryParse(value.toStringAsFixed(valueDP)) ?? 0;
+          // print("valueRnd: $valueRnd");
+          // print("value: $value");
+          if (valueRnd == value) {
+            break;
+          }
+        }
+        double maxValueOffset = 7.5;
+        if (valueRnd != value) {
+          needValueOffset = true;
+          maxValueOffset = 10;
         } else {
-          valueFontSizeOffset = valueFontSizeOffsetT;
+          valueLength = value.toStringAsFixed(valueDP).length;
         }
-      }
-    }
 
-    for (var value in valueTextList) {
-      var valueLength = value.toStringAsFixed(decimalPlaces).length;
-      bool needValueOffset = false;
-      // double valueRnd = double.tryParse(value.toStringAsFixed(0)) ?? 0;
-      double valueRnd = 0;
-      int valueDP = 0;
-      for (valueDP; valueDP < 3; valueDP++) {
-        valueRnd = double.tryParse(value.toStringAsFixed(valueDP)) ?? 0;
-        // print("valueRnd: $valueRnd");
-        // print("value: $value");
-        if (valueRnd == value) {
-          break;
-        }
-      }
-      double maxValueOffset = 7.5;
-      if (valueRnd != value) {
-        needValueOffset = true;
-        maxValueOffset = 10;
-      } else {
-        valueLength = value.toStringAsFixed(valueDP).length;
-      }
-
-      final TextPainter valueTextPainter = TextPainter(
-        text: TextSpan(
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 12 - valueFontSizeOffset,
+        final TextPainter valueTextPainter = TextPainter(
+          text: TextSpan(
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 12 - valueFontSizeOffset,
+            ),
+            text: !needValueOffset ? value.toStringAsFixed(valueDP)
+                : value.toStringAsFixed(decimalPlaces),
           ),
-          text: !needValueOffset ? value.toStringAsFixed(valueDP)
-              : value.toStringAsFixed(decimalPlaces),
-        ),
-        textDirection: TextDirection.ltr,
-      )..layout();
+          textDirection: TextDirection.ltr,
+        )..layout();
 
-      // get sweep angle for every value
-      var scaleSweepAngle = RadialHelper.actualValueToSweepAngleRadian(
-          actualValue: value,
-          maxValue: maxValue,
-          maxDegrees: segmentSweepAngle,
-          minValue: minValue);
+        // get sweep angle for every value
+        var scaleSweepAngle = RadialHelper.actualValueToSweepAngleRadian(
+            actualValue: value,
+            maxValue: maxValue,
+            maxDegrees: segmentSweepAngle,
+            minValue: minValue);
 
-      if (value == minValue) {
-        var minValueScaleOffset = Offset(
-            (center.dx) +
-                // (radius - scaleSweepAngle - (45 - valueLength * 3)) *
-                (radius - scaleSweepAngle - (35 - valueLength * 3)) *
-                    cos(startAngle + scaleSweepAngle),
-            (center.dy) +
-                (radius - scaleSweepAngle - 45) *
-                    sin(startAngle + scaleSweepAngle)
-        );
-
-        valueTextPainter.paint(canvas, minValueScaleOffset);
-      } else if (value == halfOfMinMaxValue) {
-        double valueLengthOffset = 0;
-        if (valueLength < 6) {
-          valueLengthOffset = valueLength.toDouble();
-        } else {
-          valueLengthOffset = valueLength.toDouble() / 3;
-        }
-
-        var halfValueScaleOffset = Offset(
-            (center.dx - ((value != 0) ? valueLength : 0) *
-                ((valueLength != 3) ? (valueLength / 5).ceil() : 2.5) - (2 + valueLengthOffset)),
-            (center.dy) +
-                (radius - scaleSweepAngle - 30) *
-                    sin(startAngle + scaleSweepAngle)
-        );
-
-        valueTextPainter.paint(canvas, halfValueScaleOffset);
-      } else if (value == maxValue) {
-        var maxValueScaleOffset = Offset(0, 0);
-        if (valueLength >= 5) {
-          maxValueScaleOffset = Offset(
+        if (value == minValue) {
+          var minValueScaleOffset = Offset(
               (center.dx) +
-                  (radius - scaleSweepAngle -
-                      (maxValueOffset + valueLength * 10)) *
+                  // (radius - scaleSweepAngle - (45 - valueLength * 3)) *
+                  (radius - scaleSweepAngle - (35 - valueLength * 3)) *
                       cos(startAngle + scaleSweepAngle),
               (center.dy) +
-                  (radius - scaleSweepAngle - 39.75) *
-                      sin(startAngle + scaleSweepAngle));
-        } else {
-          maxValueScaleOffset = Offset(
-              (center.dx) +
-                  (radius - scaleSweepAngle -
-                      ((maxValueOffset + valueLength) * 5)) *
-                      cos(startAngle + scaleSweepAngle),
-              (center.dy) +
-                  (radius - scaleSweepAngle - 39.75) *
-                      sin(startAngle + scaleSweepAngle));
-        }
+                  (radius - scaleSweepAngle - 45) *
+                      sin(startAngle + scaleSweepAngle)
+          );
 
-        valueTextPainter.paint(canvas, maxValueScaleOffset);
-      } else if (value == 0 && (minValue < 0) && (0 < maxValue)) {
-        // Draw 0 if minValue is not 0
-        if (
-               (zeroTextGapMin.abs()  > 0.08)
-            && (zeroTextGapHalf.abs() > 0.08)
-            && (zeroTextGapMax.abs()  > 0.08)
-        ) {
-          var scaleOffset = Offset(0, 0);
-          if (value < halfOfMinMaxValue) {
-            scaleOffset = Offset(
+          valueTextPainter.paint(canvas, minValueScaleOffset);
+        } else if (value == halfOfMinMaxValue) {
+          double valueLengthOffset = 0;
+          if (valueLength < 6) {
+            valueLengthOffset = valueLength.toDouble();
+          } else {
+            valueLengthOffset = valueLength.toDouble() / 3;
+          }
+
+          var halfValueScaleOffset = Offset(
+              (center.dx - ((value != 0) ? valueLength : 0) *
+                  ((valueLength != 3) ? (valueLength / 5).ceil() : 2.5) - (2 + valueLengthOffset)),
+              (center.dy) +
+                  (radius - scaleSweepAngle - 30) *
+                      sin(startAngle + scaleSweepAngle)
+          );
+
+          valueTextPainter.paint(canvas, halfValueScaleOffset);
+        } else if (value == maxValue) {
+          var maxValueScaleOffset = const Offset(0, 0);
+          if (valueLength >= 5) {
+            maxValueScaleOffset = Offset(
                 (center.dx) +
-                    (radius - scaleSweepAngle - 35) *
+                    (radius - scaleSweepAngle -
+                        (maxValueOffset + valueLength * 10)) *
                         cos(startAngle + scaleSweepAngle),
                 (center.dy) +
-                    (radius - scaleSweepAngle - 30) *
+                    (radius - scaleSweepAngle - 39.75) *
                         sin(startAngle + scaleSweepAngle));
           } else {
-            scaleOffset = Offset(
+            maxValueScaleOffset = Offset(
                 (center.dx) +
-                    (radius - scaleSweepAngle - 35) *
+                    (radius - scaleSweepAngle -
+                        ((maxValueOffset + valueLength) * 5)) *
                         cos(startAngle + scaleSweepAngle),
                 (center.dy) +
-                    (radius - scaleSweepAngle - 30) *
+                    (radius - scaleSweepAngle - 39.75) *
                         sin(startAngle + scaleSweepAngle));
           }
 
-          valueTextPainter.paint(canvas, scaleOffset);
+          valueTextPainter.paint(canvas, maxValueScaleOffset);
+        } else if (value == 0 && (minValue < 0) && (0 < maxValue)) {
+          // Draw 0 if minValue is not 0
+          if (
+          (zeroTextGapMin.abs()  > 0.08)
+              && (zeroTextGapHalf.abs() > 0.08)
+              && (zeroTextGapMax.abs()  > 0.08)
+          ) {
+            var scaleOffset = const Offset(0, 0);
+            if (value < halfOfMinMaxValue) {
+              scaleOffset = Offset(
+                  (center.dx) +
+                      (radius - scaleSweepAngle - 35) *
+                          cos(startAngle + scaleSweepAngle),
+                  (center.dy) +
+                      (radius - scaleSweepAngle - 30) *
+                          sin(startAngle + scaleSweepAngle));
+            } else {
+              scaleOffset = Offset(
+                  (center.dx) +
+                      (radius - scaleSweepAngle - 35) *
+                          cos(startAngle + scaleSweepAngle),
+                  (center.dy) +
+                      (radius - scaleSweepAngle - 30) *
+                          sin(startAngle + scaleSweepAngle));
+            }
+
+            valueTextPainter.paint(canvas, scaleOffset);
+          }
         }
       }
-    }
+    } else {
+      for (var label in labelList) {
 
+        final TextPainter labelTextPainter = TextPainter(
+          text: TextSpan(
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: label.fontSize,
+            ),
+            text: label.text,
+          ),
+          textDirection: TextDirection.ltr,
+        )..layout();
+
+        Offset labelOffset = Offset(
+            (center.dx) + label.xOffset,
+            (center.dy) + label.yOffset
+        );
+
+        labelTextPainter.paint(canvas, labelOffset);
+      }
+    }
 
     final double totalSplitterNo = segmentSubNo * segmentMainNo + 1;
     final valueList = getScale(totalSplitterNo);
@@ -372,7 +400,10 @@ class SegmentRadialGaugePainter extends CustomPainter {
 
     final TextPainter actualValueTextPainter = TextPainter(
         text: TextSpan(
-          style: const TextStyle(color: Colors.black),
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: actualValueFontSize,
+          ),
           children: [TextSpan(text: unit.text == '' ? '' : ' '), unit],
           text: RadialHelper.sweepAngleRadianToActualValue(
               sweepAngle: sweepAngle,
