@@ -70,27 +70,31 @@ Make sure your source code annotations are clear and comprehensive.
 
 #### Simple Line Chart Example
 
+The code snippet below shows the simple line chart widget with the required `data`, `style` and the optional properties.
+
 ```dart
 AtTimeSeriesChart.line(
-data: lineData,
-style: lineChartStyle,
-backgroundColor: Colors.white,
+    data: lineData,
+    style: lineChartStyle,
+    backgroundColor: Colors.white,
 ),
 ```
 
 #### Simple Bar Chart Example
 
+The code snippet below shows the simple bar chart widget with the required `data`, `style` and the optional properties.
+
 ```dart
 AtTimeSeriesChart.bar(
-data: barData,
-style: barChartStyle,
-backgroundColor: Colors.white,
+    data: barData,
+    style: barChartStyle,
+    backgroundColor: Colors.white,
 ),
 ```
 
 #### Simple Radial Gauge Example
 
-The code snippet below shows the simple gauge widget with the required `actualValue`, `maxValue` and the optional properties. 
+The code snippet below shows the simple radial gauge widget with the required `actualValue`, `maxValue` and the optional properties. 
 
 ```dart
 SimpleRadialGauge(
@@ -109,9 +113,10 @@ SimpleRadialGauge(
     size: 400,
 ),
 ```
-#### Scale Radial Gauge
+#### Scale Radial Gauge Example
 
-The code snippet below shows the scale gauge widget with the required `actualValue`, `maxValue` and the optional properties.
+The code snippet below shows the scale radial gauge widget with the required `actualValue`, `maxValue` and the optional properties.
+
 ```dart
 ScaleRadialGauge(
     maxValue: 100,
@@ -129,7 +134,7 @@ ScaleRadialGauge(
     unit: TextSpan(text: 'Km/h', style: TextStyle(fontSize: 10)),
 )
 ```
-#### Simple Linear Gauge
+#### Simple Linear Gauge Example
 
 The code snippet below shows the simple linear gauge widget with the required `actualValue`, `maxValue` and the optional properties.
 
@@ -156,9 +161,10 @@ SimpleLinearGauge(
     majorTickValueTextStyle: const TextStyle(color: Colors.black),
 ),
 ```
-#### Segment Radial Gauge
+#### Segment Radial Gauge Example
 
-The code snippet below shows the segment gauge widget with the required `actualValue`, `maxValue` and the optional properties.
+The code snippet below shows the segment radial gauge widget with the required `actualValue`, `maxValue` and the optional properties.
+
 ```dart
 SegmentRadialGauge(
     maxValue: _maxValue,
