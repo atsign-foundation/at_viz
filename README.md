@@ -24,13 +24,17 @@ This open source package is written in Dart, and it supports Flutter with the fo
 
 ![scale radial gauge gif](https://raw.githubusercontent.com/atsign-foundation/at_gauges/trunk/gifs/scale_gauge.gif)
 
+##### SegmentRadialGauge
+
+![segment radial gauge gif](https://raw.githubusercontent.com/project2021-code/at_viz/trunk/packages/at_viz/lib/at_gauges/gifs/segment_gauge.gif)
+  
 ##### SimpleLinearGauge
 
 ![simple linear gauge gif](https://raw.githubusercontent.com/atsign-foundation/at_gauges/trunk/gifs/linear_gauge.gif)
 <!-- - Range radial gauge -->
   <!--- add package features here -->
 
-  ##### AtTimeSeriesLineChart
+##### AtTimeSeriesLineChart
 
 <img src="https://user-images.githubusercontent.com/88494375/199918844-105c0c55-3ede-4621-8f92-33bad536e6c7.png" width="250" alt="accessibility text">
 
