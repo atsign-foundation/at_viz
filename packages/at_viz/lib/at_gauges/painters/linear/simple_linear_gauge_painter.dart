@@ -1,5 +1,7 @@
-import 'package:at_viz/at_gauges/utils/abstract_classes.dart';
-import 'package:at_viz/at_gauges/utils/enums.dart';
+// import 'package:at_viz/at_gauges/utils/abstract_classes.dart';
+// import 'package:at_viz/at_gauges/utils/enums.dart';
+import '../../utils/abstract_classes.dart';
+import '../../utils/enums.dart';
 import 'package:flutter/material.dart';
 
 class SimpleLinearGaugePainter extends LinearCustomPainter {
@@ -20,6 +22,8 @@ class SimpleLinearGaugePainter extends LinearCustomPainter {
     required double minorTickStrokeWidth,
     required TextStyle actualValueTextStyle,
     required TextStyle majorTicksValueTextStyle,
+    required int majorTicksDecimalPlace,
+    required String unitString,
   }) : super(
           minValue: minValue,
           maxValue: maxValue,
@@ -37,6 +41,8 @@ class SimpleLinearGaugePainter extends LinearCustomPainter {
           actualValueTextStyle: actualValueTextStyle,
           majorTicksValueTextStyle: majorTicksValueTextStyle,
           gaugeOrientation: gaugeOrientation,
+          majorTicksDecimalPlace: majorTicksDecimalPlace,
+          unitString: unitString,
         );
 
   @override
